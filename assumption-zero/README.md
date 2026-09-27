@@ -243,31 +243,6 @@ python -m analyzer.cli verify   # re-run tests + re-analyze + re-replay
 
 ---
 
-## Deployment
-
-### Render Blueprint (fastest)
-
-1. Push to a public GitHub repo.
-2. In Render: **New +** → **Blueprint** → point at your repo.  
-   `render.yaml` provisions both services automatically.
-
-### Manual deployment
-
-- **Analyzer API + dashboard:** `uvicorn apps.api.main:app --host 0.0.0.0 --port $PORT`
-- **Demo application:** `uvicorn demo_target.backend.main:app --host 0.0.0.0 --port $PORT`
-
----
-
-## Resetting the Demo
-
-To restore `demo_target/` to its original, intentionally-flawed state after running repairs:
-
-- **Dashboard:** Click "Reset Demo" (bottom-right of the Repair section)
-- **API:** `POST /api/reset-demo`
-- **Fresh clone:** The cleanest option before a recorded demo
-
----
-
 ## Impact
 
 Every one of the five contradictions in this demo — a required surname, a required permanent address, a country-locked phone format, a Latin-script-only name filter, and a non-idempotent submission endpoint — appears constantly in real government and NGO software.
