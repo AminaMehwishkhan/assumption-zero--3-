@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>RapidRelief — Emergency Assistance Request</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  label { display: block; margin-top: 14px; font-weight: 600; font-size: 0.9rem; }
+  input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+  button { margin-top: 20px; padding: 10px 18px; background: #1d4ed8; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  button:disabled { opacity: 0.6; }
+  .error { color: #b91c1c; margin-top: 10px; }
+  .success { color: #15803d; margin-top: 10px; }
+  .hint { color: #666; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+  <h1>RapidRelief Emergency Assistance Request</h1>
+  <p class="hint">Real, runnable demo-target app. This form intentionally contains the assumptions Assumption Zero is built to catch — see POLICY.md.</p>
+
+  <form id="app-form">
+    <label>First name
+      <input id="first_name" required />
+    </label>
+    <!-- ASSUMPTION: surname required in the DOM, contradicts POLICY.md REQ-1 -->
+    <label>Last name
+      <input id="last_name" required />
+    </label>
+    <!-- ASSUMPTION: street address required in the DOM, contradicts POLICY.md REQ-2 -->
+    <label>Street address
+      <input id="address" required />
+    </label>
+    <!-- ASSUMPTION: US-style phone pattern only, contradicts POLICY.md REQ-3 -->
+    <label>Phone (US format)
+      <input id="phone" placeholder="(555) 123-4567" required />
+    </label>
+    <button type="submit" id="submit-btn">Submit Request</button>
+    <div id="msg"></div>
+  </form>
+
+<script>
+const US_PHONE_REGEX = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+// ASSUMPTION: applicant names must be Latin-script only, contradicts POLICY.md REQ-5
+const LATIN_NAME_REGEX = /^[A-Za-z\s\-'.]+$/;
+const form = document.getElementById('app-form');
+const msg = document.getElementById('msg');
+const btn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.className = '';
+  msg.textContent = '';
+
+  const first_name = document.getElementById('first_name').value.trim();
+  const last_name = document.getElementById('last_name').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  if (!first_name) { return showError('First name is required.'); }
+  if (!LATIN_NAME_REGEX.test(first_name)) {
+    return showError('First name must use Latin letters only.');
+  }
+  if (!last_name) { return showError('Last name is required.'); }
+  if (!address) { return showError('Street address is required.'); }
+  if (!US_PHONE_REGEX.test(phone)) {
+    return showError('Please enter a valid US phone number, e.g. (555) 123-4567.');
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  try {
+    // ASSUMPTION (REQ-4): no idempotency key, no retry/resume support.
+    const res = await fetch('http://localhost:8000/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name, last_name, address, phone })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail ? JSON.stringify(data.detail) : 'Submission failed');
+    msg.className = 'success';
+    msg.textContent = 'Request submitted! Reference #' + data.id;
+  } catch (err) {
+    showError(err.message || 'Something went wrong. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Request';
+  }
+});
+
+function showError(text) {
+  msg.className = 'error';
+  msg.textContent = text;
+}
+</script>
+</body>
+</html>

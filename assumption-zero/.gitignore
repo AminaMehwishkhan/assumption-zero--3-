@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Setup markers
+.installed
+
+# The demo app's SQLite database (regenerated on every run)
+*.db
+*.db-journal
+
+# Environment secrets - never commit a real key
+.env
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Bob task session screenshots are large binary images - keep the repo
+# itself lean; reference them in the submission form instead, or track
+# them with Git LFS if you want them versioned here.
+bob/session-screenshots/*.png
+bob/session-screenshots/*.jpg
+bob/session-screenshots/*.jpeg
+!bob/session-screenshots/README.md

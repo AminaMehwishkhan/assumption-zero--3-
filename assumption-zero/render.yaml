@@ -1,0 +1,40 @@
+# Render.com Blueprint for Assumption Zero.
+#
+# Deploys both independent services this project needs:
+#   1. The analyzer API + dashboard (what a judge should open first)
+#   2. The demo application (the intentionally-flawed RapidRelief portal)
+#
+# To use: push this repository to a public GitHub repo, then in Render
+# choose "New +" -> "Blueprint" and point it at the repo. Render reads
+# this file automatically and provisions both services. Each service gets
+# its own public *.onrender.com URL -- put the analyzer API's URL in
+# SUBMISSION.md as the "Application URL" (it serves the dashboard at its
+# root), and the demo app's URL wherever you want to link the flawed
+# portal directly.
+#
+# Free-tier Render web services spin down after inactivity and take
+# ~30-60s to wake on the next request -- expected for a hackathon demo,
+# not a bug. Upgrade the plan if you need it always warm during judging.
+
+services:
+  - type: web
+    name: assumption-zero-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn apps.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ANTHROPIC_API_KEY
+        sync: false   # optional - set manually in the Render dashboard if you want AI mode
+
+  - type: web
+    name: assumption-zero-demo-app
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn demo_target.backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

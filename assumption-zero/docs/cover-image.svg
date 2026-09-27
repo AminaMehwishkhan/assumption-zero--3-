@@ -1,0 +1,82 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0c0f"/>
+      <stop offset="100%" stop-color="#12151a"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5ee0c4"/>
+      <stop offset="100%" stop-color="#7aa2ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+
+  <!-- subtle grid texture -->
+  <g opacity="0.06" stroke="#e7eaee" stroke-width="1">
+    <line x1="0" y1="120" x2="1280" y2="120"/>
+    <line x1="0" y1="240" x2="1280" y2="240"/>
+    <line x1="0" y1="480" x2="1280" y2="480"/>
+    <line x1="0" y1="600" x2="1280" y2="600"/>
+  </g>
+
+  <!-- top accent bar -->
+  <rect x="0" y="0" width="1280" height="6" fill="url(#accentLine)"/>
+
+  <!-- title -->
+  <text x="90" y="230" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="600" fill="#e7eaee">Assumption Zero</text>
+  <text x="90" y="285" font-family="'Segoe UI', Arial, sans-serif" font-size="30" fill="#8b93a1">Find the human assumptions hidden in your software.</text>
+
+  <!-- badge -->
+  <rect x="90" y="330" width="300" height="42" rx="21" fill="rgba(94,224,196,0.12)"/>
+  <text x="240" y="357" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="600" fill="#5ee0c4" text-anchor="middle">Built for IBM Bob 2.0 Hackathon</text>
+
+  <!-- assumption graph motif: requirement node fanning to 4 layers -->
+  <g transform="translate(90, 430)">
+    <rect x="0" y="30" width="230" height="56" rx="10" fill="#171b21" stroke="#7aa2ff" stroke-width="1.5"/>
+    <text x="18" y="52" font-family="'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#7aa2ff">REQ-1</text>
+    <text x="18" y="72" font-family="'Segoe UI', Arial, sans-serif" font-size="15" fill="#e7eaee">Every person has a surname</text>
+
+    <path d="M 230 58 C 300 58, 330 -60, 400 -60" stroke="#2a3038" stroke-width="1.5" fill="none"/>
+    <path d="M 230 58 C 300 58, 330 20, 400 20" stroke="#2a3038" stroke-width="1.5" fill="none"/>
+    <path d="M 230 58 C 300 58, 330 100, 400 100" stroke="#2a3038" stroke-width="1.5" fill="none"/>
+    <path d="M 230 58 C 300 58, 330 180, 400 180" stroke="#2a3038" stroke-width="1.5" fill="none"/>
+
+    <g transform="translate(400, -88)">
+      <rect width="210" height="46" rx="8" fill="#171b21" stroke="#c98bff" stroke-width="1.3"/>
+      <rect width="4" height="46" rx="2" fill="#c98bff"/>
+      <text x="14" y="18" font-family="'Segoe UI', Arial, sans-serif" font-size="10" font-weight="700" fill="#c98bff">FRONTEND</text>
+      <text x="14" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#e7eaee">Surname required in form</text>
+    </g>
+    <g transform="translate(400, -8)">
+      <rect width="210" height="46" rx="8" fill="#171b21" stroke="#7aa2ff" stroke-width="1.3"/>
+      <rect width="4" height="46" rx="2" fill="#7aa2ff"/>
+      <text x="14" y="18" font-family="'Segoe UI', Arial, sans-serif" font-size="10" font-weight="700" fill="#7aa2ff">BACKEND</text>
+      <text x="14" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#e7eaee">Schema field required</text>
+    </g>
+    <g transform="translate(400, 72)">
+      <rect width="210" height="46" rx="8" fill="#171b21" stroke="#5ee0c4" stroke-width="1.3"/>
+      <rect width="4" height="46" rx="2" fill="#5ee0c4"/>
+      <text x="14" y="18" font-family="'Segoe UI', Arial, sans-serif" font-size="10" font-weight="700" fill="#5ee0c4">DATABASE</text>
+      <text x="14" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#e7eaee">Column is NOT NULL</text>
+    </g>
+    <g transform="translate(400, 152)">
+      <rect width="210" height="46" rx="8" fill="#171b21" stroke="#f2b84b" stroke-width="1.3"/>
+      <rect width="4" height="46" rx="2" fill="#f2b84b"/>
+      <text x="14" y="18" font-family="'Segoe UI', Arial, sans-serif" font-size="10" font-weight="700" fill="#f2b84b">TESTS</text>
+      <text x="14" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#e7eaee">Zero regression coverage</text>
+    </g>
+  </g>
+
+  <!-- score panel -->
+  <g transform="translate(900, 460)">
+    <rect x="0" y="0" width="290" height="150" rx="12" fill="#12151a" stroke="#232830"/>
+    <text x="24" y="40" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#8b93a1">Human Compatibility</text>
+    <text x="24" y="95" font-family="Georgia, serif" font-size="52" font-weight="600" fill="#e7eaee">40 <tspan font-size="24" fill="#8b93a1">&#8594;</tspan> <tspan fill="#5ee0c4">100</tspan></text>
+    <rect x="24" y="112" width="120" height="24" rx="12" fill="rgba(94,224,196,0.12)"/>
+    <text x="84" y="128" font-family="'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" fill="#5ee0c4" text-anchor="middle">VERIFIED FIX</text>
+  </g>
+
+  <!-- footer tagline -->
+  <text x="90" y="670" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#565f6b">Detect &#8594; Prove &#8594; Repair &#8594; Verify — evidence-based software verification, not a linter opinion.</text>
+</svg>
